@@ -1,133 +1,117 @@
 import 'package:flutter/material.dart';
-import 'list_tamu.dart';
-import 'list_acara.dart';
-import 'about.dart';
-import 'scanner.dart';
-import 'package:get/get.dart';
+import 'package:plj/screen/about_page.dart';
+import 'package:plj/theme.dart';
 
+class DashboardPage extends StatelessWidget {
+  const DashboardPage({
+    super.key,
+  });
 
-class Dashboard extends StatefulWidget {
-  const Dashboard({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<Dashboard> createState() => _DashboardState();
-}
-
-class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title, style: TextStyle(color: Colors.white),),
-        actions: [
-            Padding(
-              padding: EdgeInsets.all(8.0), // You can adjust the padding as needed
-              child: Icon(Icons.account_circle_rounded, color: Colors.white),// U,se the correct path to your icon
+        backgroundColor: primaryColor,
+        title: Center(
+          child: Text(
+            'Dashboard',
+            style: whiteTextStyle.copyWith(
+              fontSize: 28,
             ),
-          ],
-      ),
-      body: Center(
-        child: Stack(
-          children: <Widget>[
-            // Column dan GridView di bawah gambar
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Positioned(
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  child: Padding(
-                      padding:
-                          EdgeInsets.all(20.0), // Atur sesuai kebutuhan Anda
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(
-                            15.0), // Atur radius sesuai kebutuhan Anda
-                        child: Image.asset(
-                          'assets/images/logo-db.png', // Ganti dengan path gambar Anda
-                          width: double.infinity,
-                          height:
-                              200, // Atur tinggi gambar sesuai kebutuhan Anda
-                          fit: BoxFit.cover,
-                        ),
-                      )),
+          ),
+        ),
+        actions: [
+          Container(
+            margin:
+                const EdgeInsets.only(right: 30), // Tambahkan margin sebesar 30
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Material(
+                shape: const CircleBorder(),
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.account_circle,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    // Tambahkan aksi saat tombol profil diklik
+                  },
                 ),
-                GridView.count(
-                  crossAxisCount: 2,
-                  shrinkWrap: true,
-                  padding: EdgeInsets.only(left: 60, right: 60),
+              ),
+            ),
+          ),
+        ],
+        toolbarHeight: 126, // Mengatur tinggi AppBar
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+        ),
+      ),
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                Image.asset(
+                  'assets/images/dashboard.png',
+                  height: 240,
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                Wrap(
+                  spacing: 62,
+                  runSpacing: 54,
                   children: [
-                    GridItem(
-                      icon: Icons.calendar_month,
-                      label: 'Acara',
+                    _buildImageWithText(
+                      'assets/images/events.png',
+                      'Events',
                     ),
-                    GridItem(icon: Icons.account_box, label: 'Tamu'),
-                    GridItem(icon: Icons.warning_amber, label: 'About'),
-                    GridItem(icon: Icons.barcode_reader, label: 'Scanner'),
+                    _buildImageWithText(
+                      'assets/images/visitor.png',
+                      'Visitor',
+                    ),
+                    _buildImageWithText('assets/images/about.png', 'About', () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return const AboutPage(); // Ganti dengan halaman Events Anda
+                      }));
+                    }),
+                    _buildImageWithText(
+                      'assets/images/sacnner.png',
+                      'Scanner',
+                    ),
                   ],
                 ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );
   }
-}
 
-class GridItem extends StatelessWidget {
-  final IconData icon;
-  final String label;
-
-  GridItem({required this.icon, required this.label});
-  void _handleIconClick(BuildContext context) {
-    switch (label) {
-      case 'Acara':
-        // Tindakan untuk ikon 'Tamu'
-        print('Ikon $label diklik');
-        Navigator.push(context, MaterialPageRoute(builder: (context) => daftarAcara(title: 'Daftar Acara',)));
-        // Misalnya, navigasi ke layar 'Tamu'
-        break;
-      case 'Tamu':
-        // Tindakan untuk ikon 'Tamu'
-        print('Ikon $label diklik');
-        // Misalnya, navigasi ke layar 'Tamu'
-        Navigator.push(context, MaterialPageRoute(builder: (context) => daftarTamu(title: 'Daftar Tamu',)));
-        break;
-      case 'About':
-        // Tindakan untuk ikon 'About'
-        print('Ikon $label diklik');
-        // Misalnya, menampilkan dialog 'About'
-        Navigator.push(context, MaterialPageRoute(builder: (context) => about(title: 'About',)));
-        break;
-      case 'Scanner':
-        // Tindakan untuk ikon 'Scanner'
-        print('Ikon $label diklik');
-        // Misalnya, menjalankan pemindai kode QR
-        Navigator.push(context, MaterialPageRoute(builder: (context) => scanner(title: 'Scanner',)));
-        // (Anda harus memiliki implementasi pemindai kode QR terlebih dahulu)
-        break;
-      default:
-        break;
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        _handleIconClick(context);
-      },
+  Widget _buildImageWithText(String imagePath, String text,
+      [VoidCallback? onTap]) {
+    return InkWell(
+      onTap: onTap, // Aksi yang dijalankan saat item diklik (opsional)
       child: Column(
-      children: <Widget>[
-        Icon(icon, size: 60, color: Theme.of(context).primaryColor),
-        Text(label),
-      ],
-    ),
+        children: [
+          Image.asset(
+            imagePath,
+            width: 120,
+          ),
+          const SizedBox(height: 10),
+          Text(text,
+              style: blackTextStyle.copyWith(
+                fontSize: 20,
+                fontWeight: FontWeight.w400,
+              )),
+        ],
+      ),
     );
   }
 }
