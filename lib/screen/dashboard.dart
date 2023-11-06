@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
+
+// route to page
 import 'package:plj/screen/about_page.dart';
+import 'package:plj/screen/event_page.dart';
+import 'package:plj/screen/scanner_page.dart';
+import 'package:plj/screen/visitor_page.dart';
+
+// ekspor style
 import 'package:plj/theme.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -66,24 +73,33 @@ class DashboardPage extends StatelessWidget {
                   spacing: 62,
                   runSpacing: 54,
                   children: [
-                    _buildImageWithText(
-                      'assets/images/events.png',
-                      'Events',
-                    ),
-                    _buildImageWithText(
-                      'assets/images/visitor.png',
-                      'Visitor',
-                    ),
+                    _buildImageWithText('assets/images/events.png', 'Events',
+                        () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return const EventPage(); // Ganti dengan halaman Events Anda
+                      }));
+                    }),
+                    _buildImageWithText('assets/images/visitor.png', 'Visitor',
+                        () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return VisitorPage();
+                      }));
+                    }),
                     _buildImageWithText('assets/images/about.png', 'About', () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
                         return const AboutPage(); // Ganti dengan halaman Events Anda
                       }));
                     }),
-                    _buildImageWithText(
-                      'assets/images/sacnner.png',
-                      'Scanner',
-                    ),
+                    _buildImageWithText('assets/images/sacnner.png', 'Scanner',
+                        () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return ScannerPage();
+                      }));
+                    }),
                   ],
                 ),
               ],
