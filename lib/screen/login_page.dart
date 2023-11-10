@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:plj/screen/dashboard.dart';
 import 'package:plj/theme.dart';
-import 'model/user.dart';
 import 'package:http/http.dart' as http;
-import 'package:get/get.dart';
 import 'dart:convert';
+import 'package:form_field_validator/form_field_validator.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -14,6 +13,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -90,126 +90,145 @@ class _LoginPageState extends State<LoginPage> {
                   height: 10,
                 ),
                 Container(
-                  height: 246,
-                  width: MediaQuery.of(context).size.width - (2 * 2),
-                  margin: const EdgeInsets.symmetric(horizontal: 30),
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(40),
+                    height: 246,
+                    width: MediaQuery.of(context).size.width - (2 * 2),
+                    margin: const EdgeInsets.symmetric(horizontal: 30),
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(40),
+                      ),
+                      color: whiteColor,
                     ),
-                    color: whiteColor,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        child: TextField(
-                          controller: usernameController,
-                          decoration: InputDecoration(
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: isUsernameFocused
-                                    ? primaryColor
-                                    : const Color(0xff8c8c8c),
+                    child: Form(
+                      key: _formKey,
+                      autovalidateMode: AutovalidateMode.disabled,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            child: TextFormField(
+                              controller: usernameController,
+                              decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: isUsernameFocused
+                                        ? primaryColor
+                                        : const Color(0xff8c8c8c),
+                                  ),
+                                ),
+                                prefixIcon: Icon(
+                                  Icons.person,
+                                  color: isUsernameFocused
+                                      ? primaryColor
+                                      : const Color(0xff8c8c8c),
+                                ),
+                                labelText: 'Username',
+                                labelStyle: TextStyle(
+                                  color: isUsernameFocused
+                                      ? primaryColor
+                                      : const Color(0xff8c8c8c),
+                                ),
                               ),
-                            ),
-                            prefixIcon: Icon(
-                              Icons.person,
-                              color: isUsernameFocused
-                                  ? primaryColor
-                                  : const Color(0xff8c8c8c),
-                            ),
-                            labelText: 'Username',
-                            labelStyle: TextStyle(
-                              color: isUsernameFocused
-                                  ? primaryColor
-                                  : const Color(0xff8c8c8c),
+                              validator: MultiValidator([
+                                RequiredValidator(
+                                    errorText: "Username tidak boleh kosong!"),
+                                MinLengthValidator(5,
+                                    errorText:
+                                        "username harus lebih dari 5 karakter")
+                              ]),
+                              cursorColor: primaryColor,
+                              onTap: () {
+                                setState(() {
+                                  isUsernameFocused = true;
+                                });
+                              },
+                              onEditingComplete: () {
+                                setState(() {
+                                  isUsernameFocused = false;
+                                });
+                              },
                             ),
                           ),
-                          cursorColor: primaryColor,
-                          onTap: () {
-                            setState(() {
-                              isUsernameFocused = true;
-                            });
-                          },
-                          onEditingComplete: () {
-                            setState(() {
-                              isUsernameFocused = false;
-                            });
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        child: TextField(
-                          controller: passwordController,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(
-                              Icons.lock,
-                              color: isPasswordFocused
-                                  ? primaryColor
-                                  : const Color(0xff8c8c8c),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            child: TextFormField(
+                              controller: passwordController,
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(
+                                  Icons.lock,
+                                  color: isPasswordFocused
+                                      ? primaryColor
+                                      : const Color(0xff8c8c8c),
+                                ),
+                                labelText: 'Password',
+                                labelStyle: TextStyle(
+                                  color: isPasswordFocused
+                                      ? primaryColor
+                                      : const Color(0xff8c8c8c),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: isPasswordFocused
+                                        ? primaryColor
+                                        : const Color(0xff8c8c8c),
+                                  ),
+                                ),
+                              ),
+                              validator: MultiValidator([
+                                RequiredValidator(
+                                    errorText: "Password tidak boleh kosong!"),
+                                MinLengthValidator(5,
+                                    errorText:
+                                        "Password harus lebih dari 5 karakter")
+                              ]),
+                              cursorColor: primaryColor,
+                              onTap: () {
+                                setState(() {
+                                  isPasswordFocused = true;
+                                });
+                              },
+                              onEditingComplete: () {
+                                setState(() {
+                                  isPasswordFocused = false;
+                                });
+                              },
                             ),
-                            labelText: 'Password',
-                            labelStyle: TextStyle(
-                              color: isPasswordFocused
-                                  ? primaryColor
-                                  : const Color(0xff8c8c8c),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: isPasswordFocused
-                                    ? primaryColor
-                                    : const Color(0xff8c8c8c),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            child: SizedBox(
+                              width: double.infinity,
+                              height: 40,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    // Jika validasi berhasil, lakukan tindakan yang diinginkan
+                                    login();
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: secondaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                ),
+                                child: Text(
+                                  'Login',
+                                  style: blackTextStyle.copyWith(
+                                    fontSize: 16,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                          cursorColor: primaryColor,
-                          onTap: () {
-                            setState(() {
-                              isPasswordFocused = true;
-                            });
-                          },
-                          onEditingComplete: () {
-                            setState(() {
-                              isPasswordFocused = false;
-                            });
-                          },
-                        ),
+                        ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        child: SizedBox(
-                          width: double.infinity,
-                          height: 40,
-                          child: ElevatedButton(
-                            onPressed: () {
-            
-                              login();
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: secondaryColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                            ),
-                            child: Text(
-                              'Login',
-                              style: blackTextStyle.copyWith(
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
+                    ))
               ],
             )
           ],
