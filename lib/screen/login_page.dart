@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:plj/screen/dashboard.dart';
 import 'package:plj/theme.dart';
+import 'model/user.dart';
+import 'package:http/http.dart' as http;
+import 'package:get/get.dart';
+import 'dart:convert';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -10,8 +14,46 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   bool isUsernameFocused = false;
   bool isPasswordFocused = false;
+
+  Future<void> login() async {
+    String email = usernameController.text;
+    String password = passwordController.text;
+    String urlEndPoint = "http://localhost:8000/api/user/auth/login";
+
+    Map<String, String> queryParams = {
+      'username': email,
+      'password': password,
+    };
+
+    String queryString = Uri(queryParameters: queryParams).query;
+    String requestUrl = urlEndPoint + '?' + queryString;
+
+    try {
+      final response = await http.get(Uri.parse(requestUrl));
+      Map<String, dynamic> data = json.decode(response.body);
+
+      if (data['code'] == 200) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const DashboardPage(),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(data['message']),
+        ));
+        print(response.body);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +106,7 @@ class _LoginPageState extends State<LoginPage> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         child: TextField(
+                          controller: usernameController,
                           decoration: InputDecoration(
                             focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
@@ -102,6 +145,7 @@ class _LoginPageState extends State<LoginPage> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         child: TextField(
+                          controller: passwordController,
                           obscureText: true,
                           decoration: InputDecoration(
                             prefixIcon: Icon(
@@ -145,13 +189,8 @@ class _LoginPageState extends State<LoginPage> {
                           height: 40,
                           child: ElevatedButton(
                             onPressed: () {
-                              // Tambahkan logika untuk tindakan login di sini
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const DashboardPage(),
-                                ),
-                              );
+            
+                              login();
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: secondaryColor,
