@@ -1,9 +1,96 @@
 import 'package:flutter/material.dart';
 
+
 import '../theme.dart';
 
-class ScannerPage extends StatelessWidget {
-  const ScannerPage({super.key});
+import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+
+class ScannerPage extends StatefulWidget {
+  @override
+  _ScannerPageState createState() => _ScannerPageState();
+}
+
+class _ScannerPageState extends State<ScannerPage> {
+  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  Barcode? result;
+  QRViewController? controller;
+
+  List<String> qrContent = [];
+  bool isScanning = true;
+
+  Future<void> fillAttendance() async {
+    String urlEndpoint = "http://192.168.12.1:8000/api/api_kehadiran";
+    String userId = qrContent[2];
+    String requestUrl = urlEndpoint + '?user_id=' + userId;
+
+    http.post(
+      Uri.parse(requestUrl),
+    );
+  }
+
+
+ Future<void> showAlertDialog(BuildContext context) async {
+    await showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          title: Row(
+            children: [
+              Icon(
+                Icons.check_circle,
+                color: Colors.green,
+              ),
+              SizedBox(width: 8),
+              Text(
+                "Attendance",
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Montserrat', 
+                ),
+              ),
+            ],
+          ),
+          content: Text(
+            '${qrContent[0]} berhasil mengisi kehadiran.',
+            style: TextStyle(
+              color: Colors.black87,
+              fontFamily: 'Montserrat', 
+            ),
+          ),
+          actions: <Widget>[
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.blue,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                elevation: 5.0, // Menambahkan bayangan
+              ),
+              child: Text(
+                "Oke",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Montserrat', 
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+                isScanning = true;
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,24 +132,64 @@ class ScannerPage extends StatelessWidget {
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
       ),
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 50,
-              ),
-              Text(
-                'Scanner Page',
-                style: blackTextStyle.copyWith(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            flex: 5,
+            child: Center(
+              child: Container(
+                width: 350, // Atur lebar sesuai keinginan Anda
+                height: 350, // Atur tinggi sesuai keinginan Anda
+                child: QRView(
+                  key: qrKey,
+                  onQRViewCreated: _onQRViewCreated,
+                  overlay: QrScannerOverlayShape(
+                    borderColor: Colors.red,
+                    borderRadius: 10,
+                    borderLength: 30,
+                    borderWidth: 10,
+                    cutOutSize: 250, // Atur sesuai ukuran kotak QR Code
+                  ),
                 ),
-              )
-            ],
+              ),
+            ),
           ),
-        ),
+          Expanded(
+            flex: 1,
+            child: Center(
+              child: Align(
+              alignment: Alignment.topCenter, // Mengatur posisi teks ke atas
+              child: Text('Silahkan pindai QR Code pada undangan tamu.', style: TextStyle(fontSize: 20),),
+            ),
+            ),
+          )
+        ],
       ),
     );
+  }
+
+  void _onQRViewCreated(QRViewController controller) {
+    this.controller = controller;
+    controller.scannedDataStream.listen((scanData) {
+      if (isScanning) {
+        isScanning = false; // Set isScanning ke false ketika pemindaian dimulai
+        setState(() {
+          result = scanData;
+          qrContent = utf8.decode(base64.decode(scanData.code!)).split('::');
+          controller.pauseCamera(); // Jeda kamera sementara
+          fillAttendance();
+          showAlertDialog(context).then((_) {
+            isScanning = true; // Set isScanning ke true setelah alert ditutup
+            controller.resumeCamera(); // Mulai kembali kamera
+          });
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
   }
 }
