@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-
 // route to page
 import 'package:plj/screen/about_page.dart';
 import 'package:plj/screen/event_page.dart';
 import 'package:plj/screen/scanner_page.dart';
 import 'package:plj/screen/visitor_page.dart';
-
 // ekspor style
 import 'package:plj/theme.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:plj/theme.dart';
-import 'package:plj/screen/login_page.dart';
+import '../theme.dart';
+import 'login_page.dart';
 
 class StartedPage extends StatelessWidget {
   const StartedPage({super.key});

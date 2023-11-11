@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:plj/theme.dart';
+
+import '../theme.dart';
 
 class EventPage extends StatelessWidget {
   const EventPage({super.key});

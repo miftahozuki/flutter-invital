@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:plj/screen/started_page.dart';
+
+import 'screen/started_page.dart';
 
 void main() {
   runApp(const MyApp());

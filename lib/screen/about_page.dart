@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:plj/theme.dart';
+import 'package:plj/screen/dashboard.dart';
+
+import '../theme.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
@@ -44,31 +46,28 @@ class AboutPage extends StatelessWidget {
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
       ),
+
+      /*Body*/
       body: SafeArea(
-        child: Center(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 50,
-              ),
-              Container(
-                width: 240, // Sesuaikan lebar container dengan gambar
-                height: 240, // Sesuaikan tinggi container dengan gambar
-                decoration: BoxDecoration(
-                  color: primaryColor, // Warna latar belakang container
-                  borderRadius: BorderRadius.circular(
-                      20), // Bentuk bulatan sesuai keinginan Anda
-                ),
-                child: Image.asset(
-                  'assets/images/about2.png',
-                  height: 240,
-                ),
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-            ],
-          ),
+        child: Column(
+          children: [
+            SizedBox(height: 20),
+            Image.asset(
+              'assets/images/about2.png',
+              height: 240,
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => DashboardPage(),
+                  ),
+                );
+              },
+              child: Text('Kembali ke Dashboard'),
+            ),
+          ],
         ),
       ),
     );

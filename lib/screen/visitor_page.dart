@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:plj/theme.dart';
+
+import '../theme.dart';
 
 class VisitorPage extends StatelessWidget {
   const VisitorPage({super.key});
