@@ -52,6 +52,7 @@ class DashboardPage extends StatelessWidget {
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
       ),
+
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
