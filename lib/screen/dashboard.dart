@@ -28,8 +28,9 @@ class DashboardPage extends StatelessWidget {
         ),
         actions: [
           Container(
-            margin:
-                const EdgeInsets.only(right: 30), // Tambahkan margin sebesar 30
+            margin: const EdgeInsets.only(
+              right: 30,
+            ), // Tambahkan margin sebesar 30
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Material(

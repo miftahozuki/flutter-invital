@@ -20,23 +20,7 @@ class AboutPage extends StatelessWidget {
         actions: [
           Container(
             margin: const EdgeInsets.only(
-              right: 30,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Material(
-                shape: const CircleBorder(),
-                child: InkWell(
-                  onTap: () {
-                    // Tambahkan aksi saat tombol profil diklik
-                  },
-                  child: CircleAvatar(
-                    backgroundImage: AssetImage(
-                        'assets/images/photo.png'), // Ganti dengan path gambar Anda
-                    radius: 15, // Sesuaikan radius dengan kebutuhan
-                  ),
-                ),
-              ),
+              right: 50,
             ),
           ),
         ],
