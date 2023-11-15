@@ -16,6 +16,7 @@ class DashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: primaryColor,
         title: Center(
           child: Text(
@@ -33,26 +34,25 @@ class DashboardPage extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Material(
                 shape: const CircleBorder(),
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.account_circle,
-                    color: Colors.white,
-                    size: 30,
-                  ),
-                  onPressed: () {
+                child: InkWell(
+                  onTap: () {
                     // Tambahkan aksi saat tombol profil diklik
                   },
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage(
+                        'assets/images/photo.png'), // Ganti dengan path gambar Anda
+                    radius: 15, // Sesuaikan radius dengan kebutuhan
+                  ),
                 ),
               ),
             ),
           ),
         ],
-        toolbarHeight: 126, // Mengatur tinggi AppBar
+        toolbarHeight: 80, // Mengatur tinggi AppBar
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
       ),
-
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(

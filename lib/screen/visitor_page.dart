@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:plj/widgets/visitor_card.dart';
+import 'package:plj/models/visitor.dart';
 
 import '../theme.dart';
 
@@ -26,42 +28,72 @@ class VisitorPage extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Material(
                 shape: const CircleBorder(),
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.account_circle,
-                    color: Colors.white,
-                    size: 30,
-                  ),
-                  onPressed: () {
+                child: InkWell(
+                  onTap: () {
                     // Tambahkan aksi saat tombol profil diklik
                   },
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage(
+                        'assets/images/photo.png'), // Ganti dengan path gambar Anda
+                    radius: 15, // Sesuaikan radius dengan kebutuhan
+                  ),
                 ),
               ),
             ),
           ),
         ],
-        toolbarHeight: 126, // Mengatur tinggi AppBar
+        toolbarHeight: 80, // Mengatur tinggi AppBar
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
       ),
       body: SafeArea(
-        child: Center(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 50,
-              ),
-              Text(
-                'Visitor List Page',
-                style: blackTextStyle.copyWith(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              )
-            ],
+        bottom: false,
+        child: ListView(children: [
+          SizedBox(
+            height: 50,
           ),
-        ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30),
+            child: Column(
+              children: [
+                VisitorCard(
+                  Visitor(
+                    id: 1,
+                    name: 'Ahmad Haidar Kamal',
+                    gender: 'Laki-laki',
+                    address: 'Banyuwangi',
+                    visitor_status: 'VIP',
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                VisitorCard(
+                  Visitor(
+                    id: 1,
+                    name: 'Miftahus Surur Sutowo',
+                    gender: 'Laki-laki',
+                    address: 'Situbondo',
+                    visitor_status: 'VIP',
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                VisitorCard(
+                  Visitor(
+                    id: 1,
+                    name: 'Iwangn Pradipta Dinoto',
+                    gender: 'Laki-laki',
+                    address: 'Sumenep',
+                    visitor_status: 'VIP',
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ]),
       ),
     );
   }
