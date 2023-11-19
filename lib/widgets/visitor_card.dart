@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:plj/models/visitor.dart';
-import 'package:plj/screen/visitor_detail_page.dart';
 import 'package:plj/theme.dart';
 
 class VisitorCard extends StatelessWidget {
@@ -12,22 +11,15 @@ class VisitorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => VisitorDetailPage(),
-          ),
-        );
-      },
+      onTap: () {},
       child: Row(
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: 100,
-                width: 300,
+                height: 220,
+                width: 350,
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: strokeColor,
@@ -55,7 +47,40 @@ class VisitorCard extends StatelessWidget {
                         height: 20, // Sesuaikan tinggi garis dengan desain Anda
                       ),
                       Text(
+                        visitor.status,
+                        style: blackTextStyle,
+                      ),
+                      Divider(
+                        color:
+                            strokeColor, // Sesuaikan warna garis dengan desain Anda
+                        thickness:
+                            2, // Sesuaikan ketebalan garis dengan desain Anda
+                        height: 20, // Sesuaikan tinggi garis dengan desain Anda
+                      ),
+                      Text(
+                        visitor.gender,
+                        style: blackTextStyle,
+                      ),
+                      Divider(
+                        color:
+                            strokeColor, // Sesuaikan warna garis dengan desain Anda
+                        thickness:
+                            2, // Sesuaikan ketebalan garis dengan desain Anda
+                        height: 20, // Sesuaikan tinggi garis dengan desain Anda
+                      ),
+                      Text(
                         visitor.address,
+                        style: blackTextStyle,
+                      ),
+                      Divider(
+                        color:
+                            strokeColor, // Sesuaikan warna garis dengan desain Anda
+                        thickness:
+                            2, // Sesuaikan ketebalan garis dengan desain Anda
+                        height: 20, // Sesuaikan tinggi garis dengan desain Anda
+                      ),
+                      Text(
+                        visitor.waktu,
                         style: blackTextStyle,
                       ),
                     ],

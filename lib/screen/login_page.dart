@@ -210,17 +210,24 @@ class _LoginPageState extends State<LoginPage> {
                                 height: 40,
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    if (_formKey.currentState!.validate()) {
-                                      // Jika validasi berhasil, lakukan tindakan yang diinginkan
-                                      // login();
-                                      Navigator.push(
+                                    // if (_formKey.currentState!.validate()) {
+                                    //   // Jika validasi berhasil, lakukan tindakan yang diinginkan
+                                    //   login();
+                                    //   Navigator.push(
+                                    //     context,
+                                    //     MaterialPageRoute(
+                                    //       builder: (context) =>
+                                    //           const DashboardPage(),
+                                    //     ),
+                                    //   );
+                                    // }
+                                    Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               const DashboardPage(),
                                         ),
                                       );
-                                    }
                                   },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: secondaryColor,

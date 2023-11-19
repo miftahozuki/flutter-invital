@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plj/models/visitor.dart';
 // route to page
 import 'package:plj/screen/about_page.dart';
 import 'package:plj/screen/event_page.dart';
@@ -11,6 +12,7 @@ class DashboardPage extends StatelessWidget {
   const DashboardPage({
     super.key,
   });
+
 
   @override
   Widget build(BuildContext context) {
@@ -82,10 +84,12 @@ class DashboardPage extends StatelessWidget {
                     }),
                     _buildImageWithText('assets/images/visitor.png', 'Visitor',
                         () {
+                          // getVisitor();
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
                         return VisitorPage();
                       }));
+                      
                     }),
                     _buildImageWithText('assets/images/about.png', 'About', () {
                       Navigator.push(context,
