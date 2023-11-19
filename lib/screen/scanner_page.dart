@@ -24,7 +24,7 @@ class _ScannerPageState extends State<ScannerPage> {
   Future<void> fillAttendance() async {
     String urlEndpoint = "http://192.168.12.1:8000/api/api_kehadiran";
     String userId = qrContent[2];
-    String requestUrl = urlEndpoint + '?user_id=' + userId;
+    String requestUrl = urlEndpoint + '?tamu_id=' + userId;
 
     http.post(
       Uri.parse(requestUrl),
@@ -178,6 +178,7 @@ class _ScannerPageState extends State<ScannerPage> {
           qrContent = utf8.decode(base64.decode(scanData.code!)).split('::');
           controller.pauseCamera(); // Jeda kamera sementara
           fillAttendance();
+          print('berhasil presensi');
           showAlertDialog(context).then((_) {
             isScanning = true; // Set isScanning ke true setelah alert ditutup
             controller.resumeCamera(); // Mulai kembali kamera

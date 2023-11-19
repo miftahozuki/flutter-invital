@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:plj/models/visitor.dart';
 import 'package:plj/widgets/visitor_card.dart';
+import 'package:plj/database/visitorDB.dart';
 
 import '../theme.dart';
 
@@ -11,17 +12,58 @@ class VisitorPage extends StatelessWidget {
 
 //
   Future<List<Visitor>> getVisitor() async {
+    String urlEndPoint =
+        "http://192.168.12.1:8000/api/visitors";
 
-    // String urlEndPoint =
-    //     "https://learn-flutter-ec403-default-rtdb.asia-southeast1.firebasedatabase.app/.json";
+    try {
+      final response = await http.get(Uri.parse(urlEndPoint));
 
-    String urlEndPoint = "http://127.0.0.1:8000/api/visitors";
-    final response = await http.get(Uri.parse(urlEndPoint));
+      if (response.statusCode == 200) {
+        print('Mengambil data dari server....');
+        List<Visitor> tamuList = (json.decode(response.body)['visitor'] as List)
+            .map((data) => Visitor.fromJson(data))
+            .toList();
 
-    // Mengonversi JSON menjadi list Tamu
-    List<Visitor> tamuList = (json.decode(response.body)['visitor'] as List)
-        .map((data) => Visitor.fromJson(data))
-        .toList();
+        // inisialisasi
+        final SQLiteDbProvider dbProvider = SQLiteDbProvider.db;
+        await dbProvider.initDB();
+
+        // Hapus data lama di database (opsional)
+        await dbProvider.deleteAllVisitors();
+        print('updating database...');
+
+        // Tambahkan data baru ke dalam database
+        for (Visitor visitor in tamuList) {
+          await dbProvider.addVisitor({
+            'id': visitor.id,
+            'nama_tamu': visitor.name,
+            'status': visitor.status,
+            'kelamin': visitor.gender,
+            'alamat': visitor.address,
+            'waktu': visitor.waktu,
+          });
+        }
+        return tamuList;
+      } else {
+        print('Mengambil data dari database lokal....');
+        return getfromDB();
+      }
+    } catch (error) {
+      // Handle network errors or other exceptions
+      print("Error: $error");
+      // Jika terjadi exception, kembalikan fallback dari database lokal
+      return getfromDB();
+    }
+  }
+
+  Future<List<Visitor>> getfromDB() async {
+    final SQLiteDbProvider dbProvider = SQLiteDbProvider.db;
+    await dbProvider.initDB();
+
+    List<Map<String, dynamic>> allVisitors = await dbProvider.getAllVisitors();
+
+    List<Visitor> tamuList =
+        allVisitors.map((data) => Visitor.fromJson(data)).toList();
 
     return tamuList;
   }
@@ -79,22 +121,38 @@ class VisitorPage extends StatelessWidget {
                             status: visitor.status,
                             waktu: visitor.waktu),
                       ),
-                    ], 
+                    ],
                   ),
-                  
                 );
-                
               },
             );
           }
         },
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            print('Mencetak pdf...');
-          },
-          child: Icon(Icons.picture_as_pdf_sharp),
-        ),
+        onPressed: () {
+          print('Mencetak pdf...');
+          // _bjir();
+        },
+        child: Icon(Icons.picture_as_pdf_sharp),
+      ),
     );
   }
 }
+
+// Future<void> _bjir() async {
+//   Directory documentsDirectory = await getApplicationDocumentsDirectory();
+//   String path = join(documentsDirectory.path, "VisitorDB.db");
+
+//   try {
+//     File file = File(path);
+//     if (await file.exists()) {
+//       await file.delete();
+//       print('File berhasil dihapus');
+//     } else {
+//       print('File tidak ditemukan');
+//     }
+//   } catch (e) {
+//     print('Error saat menghapus file: $e');
+//   }
+// }

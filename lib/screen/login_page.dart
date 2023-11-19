@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> login() async {
     String email = usernameController.text;
     String password = passwordController.text;
-    String urlEndPoint = "http://localhost:8001/api/user/auth/login";
+    String urlEndPoint = "http://localhost:8000/api/user/auth/login";
 
     Map<String, String> queryParams = {
       'username': email,

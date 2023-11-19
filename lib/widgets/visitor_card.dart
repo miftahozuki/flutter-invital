@@ -35,8 +35,7 @@ class VisitorCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        visitor.name,
+                      Text('Nama: ${visitor.name}',
                         style: blackTextStyle,
                       ),
                       Divider(
@@ -47,7 +46,7 @@ class VisitorCard extends StatelessWidget {
                         height: 20, // Sesuaikan tinggi garis dengan desain Anda
                       ),
                       Text(
-                        visitor.status,
+                        'Tamu: ${visitor.status}',
                         style: blackTextStyle,
                       ),
                       Divider(
@@ -58,7 +57,7 @@ class VisitorCard extends StatelessWidget {
                         height: 20, // Sesuaikan tinggi garis dengan desain Anda
                       ),
                       Text(
-                        visitor.gender,
+                        'Jenis Kelamin: ${visitor.gender}',
                         style: blackTextStyle,
                       ),
                       Divider(
@@ -69,7 +68,7 @@ class VisitorCard extends StatelessWidget {
                         height: 20, // Sesuaikan tinggi garis dengan desain Anda
                       ),
                       Text(
-                        visitor.address,
+                        'Alamat: ${visitor.address}',
                         style: blackTextStyle,
                       ),
                       Divider(
@@ -80,7 +79,7 @@ class VisitorCard extends StatelessWidget {
                         height: 20, // Sesuaikan tinggi garis dengan desain Anda
                       ),
                       Text(
-                        visitor.waktu,
+                        'Waktu: ${visitor.waktu}',
                         style: blackTextStyle,
                       ),
                     ],
