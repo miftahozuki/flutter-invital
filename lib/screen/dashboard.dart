@@ -3,6 +3,7 @@ import 'package:plj/models/visitor.dart';
 // route to page
 import 'package:plj/screen/about_page.dart';
 import 'package:plj/screen/event_page.dart';
+import 'package:plj/screen/profile_page.dart';
 import 'package:plj/screen/scanner_page.dart';
 import 'package:plj/screen/visitor_page.dart';
 // ekspor style
@@ -39,7 +40,10 @@ class DashboardPage extends StatelessWidget {
                 shape: const CircleBorder(),
                 child: InkWell(
                   onTap: () {
-                    // Tambahkan aksi saat tombol profil diklik
+                    Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return ProfilePage();
+                      }));// Tambahkan aksi saat tombol profil diklik
                   },
                   child: CircleAvatar(
                     backgroundImage: AssetImage(

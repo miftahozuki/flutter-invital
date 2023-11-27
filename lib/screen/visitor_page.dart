@@ -12,8 +12,7 @@ class VisitorPage extends StatelessWidget {
 
 //
   Future<List<Visitor>> getVisitor() async {
-    String urlEndPoint =
-        "http://192.168.12.1:8000/api/visitors";
+    String urlEndPoint = "http://127.0.0.1:8000/api/visitors";
 
     try {
       final response = await http.get(Uri.parse(urlEndPoint));
