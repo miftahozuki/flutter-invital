@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 
-
 import '../theme.dart';
 
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 
 class ScannerPage extends StatefulWidget {
   @override
@@ -31,8 +29,7 @@ class _ScannerPageState extends State<ScannerPage> {
     );
   }
 
-
- Future<void> showAlertDialog(BuildContext context) async {
+  Future<void> showAlertDialog(BuildContext context) async {
     await showDialog(
       context: context,
       barrierDismissible: false,
@@ -53,7 +50,7 @@ class _ScannerPageState extends State<ScannerPage> {
                 style: TextStyle(
                   color: Colors.blue,
                   fontWeight: FontWeight.bold,
-                  fontFamily: 'Montserrat', 
+                  fontFamily: 'Montserrat',
                 ),
               ),
             ],
@@ -62,7 +59,7 @@ class _ScannerPageState extends State<ScannerPage> {
             '${qrContent[0]} berhasil mengisi kehadiran.',
             style: TextStyle(
               color: Colors.black87,
-              fontFamily: 'Montserrat', 
+              fontFamily: 'Montserrat',
             ),
           ),
           actions: <Widget>[
@@ -78,7 +75,7 @@ class _ScannerPageState extends State<ScannerPage> {
                 "Oke",
                 style: TextStyle(
                   color: Colors.white,
-                  fontFamily: 'Montserrat', 
+                  fontFamily: 'Montserrat',
                 ),
               ),
               onPressed: () {
@@ -99,7 +96,7 @@ class _ScannerPageState extends State<ScannerPage> {
         backgroundColor: primaryColor,
         title: Center(
           child: Text(
-            'Scan Code | My Code',
+            'Scan Code',
             style: whiteTextStyle.copyWith(
               fontSize: 28,
             ),
@@ -108,34 +105,21 @@ class _ScannerPageState extends State<ScannerPage> {
         actions: [
           Container(
             margin:
-                const EdgeInsets.only(right: 30), // Tambahkan margin sebesar 30
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Material(
-                shape: const CircleBorder(),
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.account_circle,
-                    color: Colors.white,
-                    size: 30,
-                  ),
-                  onPressed: () {
-                    // Tambahkan aksi saat tombol profil diklik
-                  },
-                ),
-              ),
-            ),
+                const EdgeInsets.only(right: 50), // Tambahkan margin sebesar 30
           ),
         ],
-        toolbarHeight: 126, // Mengatur tinggi AppBar
+        toolbarHeight: 80, // Mengatur tinggi AppBar
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
       ),
       body: Column(
-        children: <Widget>[
-          Expanded(
-            flex: 5,
+        children: [
+          SizedBox(
+            height: 40,
+          ),
+          SizedBox(
+            // flex: 5,
             child: Center(
               child: Container(
                 width: 350, // Atur lebar sesuai keinginan Anda
@@ -154,13 +138,21 @@ class _ScannerPageState extends State<ScannerPage> {
               ),
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: Center(
-              child: Align(
+          SizedBox(
+            height: 20,
+          ),
+          SizedBox(
+            child: Align(
               alignment: Alignment.topCenter, // Mengatur posisi teks ke atas
-              child: Text('Silahkan pindai QR Code pada undangan tamu.', style: TextStyle(fontSize: 20),),
-            ),
+              child: Center(
+                child: Text(
+                  'Silahkan pindai QR Code\n pada undangan tamu',
+                  style: blackTextStyle.copyWith(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
             ),
           )
         ],
