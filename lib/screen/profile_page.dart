@@ -44,7 +44,7 @@ class ProfilePage extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(100),
                   child: Image.asset(
-                    'assets/images/profile.png',
+                    'assets/images/user.png',
                     fit: BoxFit.cover,
                   ),
                 ),

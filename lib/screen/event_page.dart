@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plj/models/event.dart';
+import 'package:plj/screen/event_detail_page.dart';
 import 'package:plj/widgets/event_card.dart';
 
 import '../theme.dart';
@@ -41,26 +42,50 @@ class EventPage extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 30),
             child: Column(
               children: [
-                EventCard(
-                  Event(
-                    id: 1,
-                    husband_name: 'Uzumaki Naruto',
-                    wife_name: 'Hyuga Hinata',
-                    event_address: 'Konohagakure',
-                    event_date: '20 November 2023',
+                InkWell(
+                  child: EventCard(
+                    Event(
+                      id: 1,
+                      husband_name: 'Uzumaki Naruto',
+                      wife_name: 'Hyuga Hinata',
+                      event_address: 'Konohagakure',
+                      event_date: '20 November 2023',
+                    ),
                   ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return EventDetailPage();
+                        },
+                      ),
+                    );
+                  },
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                EventCard(
-                  Event(
-                    id: 1,
-                    husband_name: 'Loid Forger',
-                    wife_name: 'Yor Briar',
-                    event_address: 'Westalis',
-                    event_date: '24 November 2023',
+                InkWell(
+                  child: EventCard(
+                    Event(
+                      id: 1,
+                      husband_name: 'Loid Forger',
+                      wife_name: 'Yor Briar',
+                      event_address: 'Westalis',
+                      event_date: '24 November 2023',
+                    ),
                   ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return EventDetailPage();
+                        },
+                      ),
+                    );
+                  },
                 ),
                 SizedBox(
                   height: 20,

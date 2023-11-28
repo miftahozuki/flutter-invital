@@ -31,108 +31,64 @@ class AboutPage extends StatelessWidget {
       ),
 
       /*Body*/
-      body: SafeArea(
-        bottom: false,
-        child: Stack(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 30,
-                vertical: 30,
-              ),
-              child: Container(
-                height: 600,
-                width: 350,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(20),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(24),
+          child: Center(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  'Invital App',
+                  style: blackTextStyle.copyWith(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 30,
                   ),
-                  color: whiteColor,
                 ),
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: Stack(
-                        children: [
-                          Image.asset(
-                            'assets/images/about2.png',
-                            width: 350,
-                            fit: BoxFit.cover,
-                          ),
-                          Positioned(
-                            bottom: 0,
-                            child: Container(
-                              height: 340,
-                              width: 350,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(20),
-                                ),
-                                color: brownColor,
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'INVITAL',
-                                      style: blackTextStyle.copyWith(
-                                        fontSize: 40,
-                                        fontWeight: FontWeight.w800,
-                                      ),
-                                    ),
-                                    SizedBox(height: 10),
-                                    Text(
-                                      'Invitations Digital merupakan solusi modern dan ramah lingkungan untuk mengelola undangan acara Anda, memberikan kemudahan, efisiensi, dan fleksibilitas dalam proses pengiriman undangan',
-                                      style: blackTextStyle.copyWith(
-                                        fontSize: 16,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                Text(
+                  'Version 1.1.1.1',
+                  style: blackTextStyle.copyWith(
+                    fontSize: 18,
+                  ),
                 ),
-              ),
-            ),
-            Positioned(
-              left: 80,
-              right: 80,
-              bottom: 5,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 40,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: secondaryColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    child: Text(
-                      'BACK',
-                      style: blackTextStyle.copyWith(
-                        fontSize: 16,
-                      ),
+                SizedBox(
+                  width: 250,
+                  height: 250,
+                  child: Image.asset(
+                    'assets/images/login_logo.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  '© 2023 PT PCA\nPencari Cinta Abadi',
+                  textAlign: TextAlign.center,
+                  style: blackTextStyle.copyWith(
+                    fontSize: 18,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                InkWell(
+                  onTap: () {
+                    //
+                  },
+                  child: Text(
+                    'CONTACT US',
+                    style: blackTextStyle.copyWith(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 18,
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

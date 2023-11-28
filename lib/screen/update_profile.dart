@@ -41,23 +41,26 @@ class UpdateProfilePage extends StatelessWidget {
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(100),
                         child: Image.asset(
-                          'assets/images/profile.png',
+                          'assets/images/user.png',
                           fit: BoxFit.cover,
                         )),
                   ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Container(
-                      width: 35,
-                      height: 35,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: primaryColor),
-                      child: const Icon(LineAwesomeIcons.camera,
-                          color: Colors.black, size: 20),
-                    ),
-                  ),
+                  /** */
+                  /*Edit Foto Button*/
+                  /** */
+                  // Positioned(
+                  //   bottom: 0,
+                  //   right: 0,
+                  //   child: Container(
+                  //     width: 35,
+                  //     height: 35,
+                  //     decoration: BoxDecoration(
+                  //         borderRadius: BorderRadius.circular(100),
+                  //         color: primaryColor),
+                  //     child: const Icon(LineAwesomeIcons.camera,
+                  //         color: Colors.black, size: 20),
+                  //   ),
+                  // ),
                 ],
               ),
               const SizedBox(height: 50),
