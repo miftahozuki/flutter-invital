@@ -24,7 +24,7 @@ class WifeCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 5, left: 10),
                 child: Text(
-                  'data',
+                  'Nama Istri',
                   style: blackTextStyle,
                 ),
               )
@@ -50,7 +50,7 @@ class WifeCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 5, left: 10),
                 child: Text(
-                  'data',
+                  'Nama Bapak Istri',
                   style: blackTextStyle,
                 ),
               )
@@ -76,7 +76,7 @@ class WifeCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 5, left: 10),
                 child: Text(
-                  'data',
+                  'Nama Ibu Istri',
                   style: blackTextStyle,
                 ),
               )
