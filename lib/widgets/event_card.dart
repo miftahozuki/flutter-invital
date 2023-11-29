@@ -16,7 +16,7 @@ class EventCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 130,
+              height: 200,
               width: 300,
               decoration: BoxDecoration(
                 border: Border.all(
@@ -34,7 +34,21 @@ class EventCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${event.husband_name} & ${event.wife_name}',
+                      '${event.husband_name}',
+                      style: blackTextStyle,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      '&',
+                      style: blackTextStyle,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      '${event.wife_name}',
                       style: blackTextStyle,
                     ),
                     Divider(

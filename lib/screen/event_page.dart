@@ -46,34 +46,10 @@ class EventPage extends StatelessWidget {
                   child: EventCard(
                     Event(
                       id: 1,
-                      husband_name: 'Uzumaki Naruto',
-                      wife_name: 'Hyuga Hinata',
-                      event_address: 'Konohagakure',
-                      event_date: '20 November 2023',
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return EventDetailPage();
-                        },
-                      ),
-                    );
-                  },
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                InkWell(
-                  child: EventCard(
-                    Event(
-                      id: 1,
-                      husband_name: 'Loid Forger',
-                      wife_name: 'Yor Briar',
-                      event_address: 'Westalis',
-                      event_date: '24 November 2023',
+                      husband_name: 'Muhammad Zainuddin',
+                      wife_name: 'Qomariatun',
+                      event_address: 'Banyuwangi',
+                      event_date: '15 November 2023',
                     ),
                   ),
                   onTap: () {
