@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import 'package:plj/models/visitor.dart';
 import 'package:plj/widgets/visitor_card.dart';
 import 'package:plj/database/visitorDB.dart';
@@ -9,14 +10,15 @@ import '../theme.dart';
 
 class VisitorPage extends StatelessWidget {
   const VisitorPage({super.key});
+  
 
 //
   Future<List<Visitor>> getVisitor() async {
-    String urlEndPoint = "http://127.0.0.1:8000/api/visitors";
+    String urlEndPoint = "http://invitation-digital.tifint.myhost.id/api/visitors";
 
     try {
       final response = await http.get(Uri.parse(urlEndPoint));
-
+      print(response.body);
       if (response.statusCode == 200) {
         print('Mengambil data dari server....');
         List<Visitor> tamuList = (json.decode(response.body)['visitor'] as List)

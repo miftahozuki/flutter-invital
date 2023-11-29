@@ -3,9 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:plj/models/user.dart';
 import '../theme.dart';
 import 'dashboard.dart';
+import 'package:plj/database/userDB.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -25,7 +27,9 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> login() async {
     String email = usernameController.text;
     String password = passwordController.text;
-    String urlEndPoint = "http://localhost:8000/api/user/auth/login";
+    String urlEndPoint = "http://invitation-digital.tifint.myhost.id/api/user/auth/login";
+    final SQLiteDbProvider dbProvider = SQLiteDbProvider.db;
+    await dbProvider.initDB();
 
     Map<String, String> queryParams = {
       'username': email,
@@ -38,6 +42,7 @@ class _LoginPageState extends State<LoginPage> {
     try {
       final response = await http.get(Uri.parse(requestUrl));
       Map<String, dynamic> data = json.decode(response.body);
+      // print(response.body);
 
       if (data['code'] == 200) {
         Navigator.push(
@@ -46,6 +51,18 @@ class _LoginPageState extends State<LoginPage> {
             builder: (context) => const DashboardPage(),
           ),
         );
+      User user = new User.fromJson(data);
+            final SharedPreferences prefs = await SharedPreferences.getInstance();
+            await prefs.setInt('UserID', user.id);
+      await dbProvider.addUser({
+            'id': user.id,
+            'name': user.name,
+            'username': user.username,
+            'email': user.email,
+            'instagram': user.instagram,
+            'alamat': user.alamat,
+            'phone_number': user.phone_number
+          });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(data['message']),
@@ -210,24 +227,24 @@ class _LoginPageState extends State<LoginPage> {
                                 height: 40,
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    // if (_formKey.currentState!.validate()) {
-                                    //   // Jika validasi berhasil, lakukan tindakan yang diinginkan
-                                    //   login();
-                                    //   Navigator.push(
+                                    if (_formKey.currentState!.validate()) {
+                                      // Jika validasi berhasil, lakukan tindakan yang diinginkan
+                                      login();
+                                      // Navigator.push(
+                                      //   context,
+                                      //   MaterialPageRoute(
+                                      //     builder: (context) =>
+                                      //         const DashboardPage(),
+                                      //   ),
+                                      // );
+                                    }
+                                    // Navigator.push(
                                     //     context,
                                     //     MaterialPageRoute(
                                     //       builder: (context) =>
                                     //           const DashboardPage(),
                                     //     ),
                                     //   );
-                                    // }
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const DashboardPage(),
-                                        ),
-                                      );
                                   },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: secondaryColor,
