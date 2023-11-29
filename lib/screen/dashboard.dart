@@ -14,7 +14,6 @@ class DashboardPage extends StatelessWidget {
     super.key,
   });
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,13 +40,13 @@ class DashboardPage extends StatelessWidget {
                 child: InkWell(
                   onTap: () {
                     Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return ProfilePage();
-                      }));// Tambahkan aksi saat tombol profil diklik
+                        MaterialPageRoute(builder: (context) {
+                      return ProfilePage();
+                    })); // Tambahkan aksi saat tombol profil diklik
                   },
                   child: CircleAvatar(
                     backgroundImage: AssetImage(
-                        'assets/images/photo.png'), // Ganti dengan path gambar Anda
+                        'assets/images/user.png'), // Ganti dengan path gambar Anda
                     radius: 15, // Sesuaikan radius dengan kebutuhan
                   ),
                 ),
@@ -88,12 +87,11 @@ class DashboardPage extends StatelessWidget {
                     }),
                     _buildImageWithText('assets/images/visitor.png', 'Visitor',
                         () {
-                          // getVisitor();
+                      // getVisitor();
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
                         return VisitorPage();
                       }));
-                      
                     }),
                     _buildImageWithText('assets/images/about.png', 'About', () {
                       Navigator.push(context,
