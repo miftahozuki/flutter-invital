@@ -20,7 +20,7 @@ class _ScannerPageState extends State<ScannerPage> {
   bool isScanning = true;
 
   Future<void> fillAttendance() async {
-    String urlEndpoint = "http://192.168.12.1:8000/api/api_kehadiran";
+    String urlEndpoint = "https://invitation-digital.tifint.myhost.id/api/api_kehadiran";
     String userId = qrContent[2];
     String requestUrl = urlEndpoint + '?tamu_id=' + userId;
 
